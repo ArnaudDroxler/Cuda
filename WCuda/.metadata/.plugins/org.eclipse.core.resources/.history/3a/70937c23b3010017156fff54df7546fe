@@ -1,0 +1,62 @@
+#pragma once
+
+#include <math.h>
+#include "MathTools.h"
+#include "FractaleMath.h"
+
+#include "Calibreur_CPU.h"
+#include "ColorTools_CPU.h"
+using namespace cpu;
+
+/*----------------------------------------------------------------------*\
+ |*			Declaration 					*|
+ \*---------------------------------------------------------------------*/
+
+/*--------------------------------------*\
+ |*		Public			*|
+ \*-------------------------------------*/
+
+class JuliaMathH : public FractaleMath
+    {
+
+
+    public:
+
+	JuliaMathH(uint n, uint c1 uint c2) : FractaleMath(n)
+	    {
+
+	    }
+
+	virtual ~JuliaMathH()
+	    {
+	    // rien
+	    }
+
+    private:
+
+	int f(float x, float y)
+	    {
+		float a = X;
+		float b = y;
+		float copyA = 0;
+		int i = 0;
+
+		do{
+		    i++;
+		    copyA = a;
+		    a = (a*a-b*b)+x;
+		    b = 2.0f*copyA*b+y;
+		}
+		while( a*a+b*b < 4.0f && i < this->n );
+
+		return i;
+	    }
+
+    private:
+	uint c1; uint c2
+
+    };
+
+/*----------------------------------------------------------------------*\
+ |*			End	 					*|
+ \*---------------------------------------------------------------------*/

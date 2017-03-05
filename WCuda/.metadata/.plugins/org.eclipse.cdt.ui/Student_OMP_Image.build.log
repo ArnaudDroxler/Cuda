@@ -1,4 +1,4 @@
-18:24:30 **** Incremental Build of configuration GCC_parallel for project Student_OMP_Image ****
+16:22:26 **** Incremental Build of configuration GCC_parallel for project Student_OMP_Image ****
 cbicc gcc jall 
 
 --------------------------------------------------------
@@ -110,6 +110,9 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 [CBI] ->              : src/core/02_Mandelbrot/a_animable/
 [CBI] ->              : src/core/02_Mandelbrot/a_animable/math/
 [CBI] ->              : src/core/02_Mandelbrot/b_provider/
+[CBI] ->              : src/core/03_Julia/a_animable/
+[CBI] ->              : src/core/03_Julia/a_animable/math/
+[CBI] ->              : src/core/03_Julia/b_provider/
 
 [CBI] -> LIB_PATH (auto detect):
 
@@ -227,18 +230,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 [CBI] ->              : opencv_videoio_gcc484
 [CBI] ->              : opencv_videostab_gcc484
 
-[CBI] -> Create folder : /tmp/ramdrive/arc21/Targets/Student_OMP_Image/bin
-[CBI] -> Create folder : /tmp/ramdrive/arc21/Targets/Student_OMP_Image/obj
 
 [CBI] -> Compilation parallel (32 threads)
 
-[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/main.cpp
-[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/mainAnimable.cpp
-[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/mainImage.cpp
-[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/02_Mandelbrot/a_animable/Mandelbrot.cpp
-[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/02_Mandelbrot/b_provider/MandelbrotProvider.cpp
-[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/01_Rippling/a_animable/Rippling.cpp
-[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/01_Rippling/b_provider/RipplingProvider.cpp
+[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/03_Julia/a_animable/JuliaH.cpp
+[Student_OMP_Image_gcc_x86_64] -> g++ compiling .cpp : src/core/03_Julia/b_provider/JuliaHProvider.cpp
 
 [CBI] -> Linking to   : /tmp/ramdrive/arc21/Targets/Student_OMP_Image/bin/Student_OMP_Image_gcc_x86_64.run
 
@@ -288,7 +284,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 [CBI] ->
 [CBI] -> Compilateur  : g++
 [CBI] -> Task	      : End Compiling-Linking !
-[CBI] -> Time		  : 2 (s)
+[CBI] -> Time		  : 1 (s)
 ==================================================================================
 
 
@@ -300,5 +296,5 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 [CBI] -> Student_OMP_Image_gcc_x86_64 : End ALL!
 
 
-18:24:35 Build Finished (took 4s.777ms)
+16:22:27 Build Finished (took 1s.436ms)
 

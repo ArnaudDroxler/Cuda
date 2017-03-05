@@ -1,0 +1,12 @@
+
+FractaleMath(uint n);
+
+	virtual ~FractaleMath();
+
+	virtual int f(float x, float y ) = 0;
+
+   	void colorXY(uchar4* ptrColor, float x, float y);
+
+   	bool isStop(float a, float n);
+
+   	void setN(int n);

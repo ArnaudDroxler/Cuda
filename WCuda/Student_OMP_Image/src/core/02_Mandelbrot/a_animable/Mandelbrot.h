@@ -71,9 +71,6 @@ class Mandelbrot: public Animable_I<uchar4>
 
     private:
 
-	// Inputs
-	uint n;
-
 	// Tools
 	Variateur<int> variateurAnimation;
 

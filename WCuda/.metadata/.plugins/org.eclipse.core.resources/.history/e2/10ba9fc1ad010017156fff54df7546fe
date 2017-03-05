@@ -1,0 +1,54 @@
+#pragma once
+
+#include "cudaType_CPU.h"
+#include "Variateur_CPU.h"
+#include "Animable_I_CPU.h"
+
+#include "math/MandelbrotMathH.h"
+#include "Fractale.h"
+using namespace cpu;
+
+/*----------------------------------------------------------------------*\
+ |*			Declaration 					*|
+ \*---------------------------------------------------------------------*/
+
+/*--------------------------------------*\
+ |*		Public			*|
+ \*-------------------------------------*/
+
+class MandelbrotH: public Fractale
+    {
+
+	/*--------------------------------------*\
+	 |*		Constructeur		*|
+	 \*-------------------------------------*/
+
+    public:
+
+	MandelbrotH(uint w, uint h, uint dt,  const DomaineMath& domaineMath);
+
+	virtual ~MandelbrotH(void);
+
+	/*--------------------------------------*\
+	 |*		Methode			*|
+	 \*-------------------------------------*/
+
+    public:
+
+	/*-------------------------*\
+	|*   Override Animable_I   *|
+	 \*------------------------*/
+
+    private:
+
+	// Inputs
+	uint n;
+
+	// Tools
+	Variateur<int> variateurAnimation;
+
+    };
+
+/*----------------------------------------------------------------------*\
+ |*			End	 					*|
+ /*----------------------------------------------------------------------*/

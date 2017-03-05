@@ -1,0 +1,28 @@
+#pragma once
+
+#include "cudaType_CPU.h"
+#include "Variateur_CPU.h"
+#include "Animable_I_CPU.h"
+#include "math/JuliaMathH.h"
+
+using namespace cpu;
+
+/*----------------------------------------------------------------------*\
+ |*			Declaration 					*|
+ \*---------------------------------------------------------------------*/
+
+/*--------------------------------------*\
+ |*		Public			*|
+ \*-------------------------------------*/
+
+class JuliaH: public
+    {
+
+
+    public:
+
+	JuliaH(uint w, uint h, uint dt,  const DomaineMath& domaineMath);
+
+	virtual ~JuliaH(void);
+
+    }

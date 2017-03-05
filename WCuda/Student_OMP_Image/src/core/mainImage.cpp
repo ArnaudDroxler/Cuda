@@ -1,9 +1,10 @@
 #include <iostream>
 
-#include "MandelbrotProvider.h"
-
 #include "Viewer_CPU.h"
 #include "Settings_CPU.h"
+
+#include "03_Julia/b_provider/JuliaHProvider.h"
+#include "03_Julia/b_provider/MandelbrotHProvider.h"
 using namespace cpu;
 
 using std::cout;
@@ -49,7 +50,9 @@ int mainImage(Settings& settings)
     ImageOption zoomable(true,true,true,true);
     ImageOption nozoomable(false,false,false,false);
 
-    Viewer<MandelbrotProvider> rippling(zoomable, 25, 25); //  imageOption px py
+    Viewer<JuliaHProvider> julia(zoomable, 25, 25); //  imageOption px py
+    //Viewer<MandelbrotHProvider> mandelbrot(zoomable, 25, 25); //  imageOption px py
+
 
     GLUTImageViewers::runALL();  // Bloquant, Tant qu'une fenetre est ouverte
 
