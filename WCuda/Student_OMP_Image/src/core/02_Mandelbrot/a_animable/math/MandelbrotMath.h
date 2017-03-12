@@ -78,7 +78,7 @@ class MandelbrotMath
 		    a = (a*a-b*b)+x;
 		    b = 2.0f*copyA*b+y;
 		}
-		while( a*a+b*b < 4.0f && i < n );
+		while( a*a+b*b < 4.0f && i < this->n );
 
 
 /*		for (i = 0; i < n; ++i)

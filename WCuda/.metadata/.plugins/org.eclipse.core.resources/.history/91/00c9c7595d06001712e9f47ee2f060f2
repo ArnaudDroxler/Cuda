@@ -1,0 +1,75 @@
+#include "Indice2D.h"
+#include "cudaTools.h"
+#include "Device.h"
+#include "math/MandelbrotMath.h"
+#include "DomaineMath_GPU.h"
+#include "IndiceTools_GPU.h"
+using namespace gpu;
+
+/*----------------------------------------------------------------------*\
+ |*			Declaration 					*|
+ \*---------------------------------------------------------------------*/
+
+/*--------------------------------------*\
+ |*		Public			*|
+ \*-------------------------------------*/
+
+__global__ void mandelbrot(uchar4* ptrDevPixels,uint w, uint h,uint t,const DomaineMath& domaineMath);
+
+/*--------------------------------------*\
+ |*		Private			*|
+ \*-------------------------------------*/
+
+static __device__ void workPixel(uchar4* ptrDevPixels,uint i, uint j,const DomaineMath& domaineMath,MandelbrotMath* ptrmandelbrotMath);
+
+/*----------------------------------------------------------------------*\
+ |*			Implementation 					*|
+ \*---------------------------------------------------------------------*/
+
+/*--------------------------------------*\
+ |*		Public			*|
+ \*-------------------------------------*/
+__global__ void mandelbrot(uchar4* ptrDevPixels, uint w, uint h, uint t,const DomaineMath& domaineMath)
+    {
+    MandelbrotMath mandelbrotMath = MandelbrotMath(t);
+
+    const int WH=w*h;
+    const int TID = Indice2D::tid();
+    const int NB_THREAD = Indice2D::nbThread();
+
+    int i;
+    int j;
+
+    int s = TID;
+    while (s < WH)
+	{
+	IndiceTools::toIJ(s, w, &i, &j);
+
+	//mandelbrotMath.colorXY(ptrDevPixels,i, j);
+	workPixel(&ptrDevPixels[s],i, j,domaineMath,&mandelbrotMath);
+
+	s += NB_THREAD;
+	}
+    }
+
+__device__
+void workPixel(uchar4* ptrDevPixels,uint i, uint j,const DomaineMath& domaineMath,MandelbrotMath* ptrmandelbrotMath)
+    {
+
+    double x;
+    double y;
+    domaineMath.toXY(i, j, &x, &y);
+
+    printf("x %i", x);
+
+    ptrmandelbrotMath->colorXY(ptrDevPixels,x, y);
+    }
+
+/*--------------------------------------*\
+ |*		Public			*|
+ \*-------------------------------------*/
+
+/*----------------------------------------------------------------------*\
+ |*			End	 					*|
+ \*---------------------------------------------------------------------*/
+

@@ -13,10 +13,11 @@ using std::cout;
 using std::endl;
 
 
-FractaleMath::FractaleMath(uint n){
+FractaleMath::FractaleMath(uint n) :
+	calibreur(Interval<float>(0, n), Interval<float>(0, 1))
+    {
     this->n = n;
-    this->calibreur = new Calibreur<float>(Interval<float>(0, n), Interval<float>(0, 1));
-}
+    }
 
 FractaleMath::~FractaleMath(){
 
@@ -27,7 +28,7 @@ void FractaleMath::colorXY(uchar4* ptrColor, float x, float y){
     float z = f(x, y);
 
     if(z != n){
-	calibreur->calibrer(z);
+	calibreur.calibrer(z);
 	float hue01 = z;
 	ColorTools::HSB_TO_RVB(hue01, ptrColor); // update color
     }else{
@@ -47,6 +48,6 @@ bool FractaleMath::isStop(float a, float n){
 void FractaleMath::setN(int n){
 
     this->n = n;
-    this->calibreur = new Calibreur<float>(Interval<float>(0, n), Interval<float>(0, 1));
+    calibreur = Calibreur<float>(Interval<float>(0, n), Interval<float>(0, 1));
 
 }

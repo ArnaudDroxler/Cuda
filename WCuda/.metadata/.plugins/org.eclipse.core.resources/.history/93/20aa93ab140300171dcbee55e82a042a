@@ -1,0 +1,93 @@
+#include <iostream>
+#include <omp.h>
+#include "OmpTools.h"
+
+#include "IndiceTools_CPU.h"
+
+#include "MandelbrotH.h"
+
+#include "math/MandelbrotMathH.h"
+using cpu::IndiceTools;
+
+using std::cout;
+using std::endl;
+
+
+Fractale::Fractale(uint w, uint h, uint dt,  const DomaineMath& domaineMath) :
+	Animable_I<uchar4>(w, h, "FractalH_OMP_rgba_uchar4",domaineMath), variateurAnimation(Interval<int>(30, 200), dt)
+    {
+
+    // Tools
+    this->t = 30;					// protected dans super classe Animable
+    this->parallelPatern = ParallelPatern::OMP_ENTRELACEMENT;   // protected dans super classe Animable
+
+    }
+
+Fractale::~Fractale(void)
+    {
+    // rien
+    }
+
+void Fractale::animationStep()
+    {
+    this->t = variateurAnimation.varierAndGet(); // in [0,2pi]
+    }
+
+void Fractale::processForAutoOMP(uchar4* ptrTabPixels, uint w, uint h, const DomaineMath& domaineMath)
+    {
+
+#pragma omp parallel for
+    for (int i = 0; i < h; i++)
+	{
+	for (int j = 0; j < w; j++)
+	    {
+	    // int s = i * W + j;
+	    int s = IndiceTools::toS(w, i, j);    // i[0,H[ j[0,W[  --> s[0,W*H[
+
+	    workPixel(&ptrTabPixels[s],i,j,domaineMath);
+	    }
+	}
+    }
+
+
+void Fractale::processEntrelacementOMP(uchar4* ptrTabPixels, uint w, uint h, const DomaineMath& domaineMath)
+    {
+
+    const int WH = w * h;
+
+
+#pragma omp parallel
+	{
+	const int NB_THREAD = OmpTools::getNbThread(); // dans region parallel
+	const int TID = OmpTools::getTid();
+
+	int i;
+	int j;
+
+	int s = TID; // in [0,...
+	while (s < WH)
+	    {
+	    IndiceTools::toIJ(s, w, &i, &j); // s[0,W*H[ --> i[0,H[ j[0,W[
+
+	    workPixel(&ptrTabPixels[s],i,j,domaineMath);
+
+	    s += NB_THREAD;
+	    }
+	}
+    }
+
+
+void Fractale::workPixel(uchar4* ptrColorIJ,int i, int j,const DomaineMath& domaineMath)
+    {
+    // (i,j) domaine ecran dans N2
+    // (x,y) domaine math dans R2
+
+    double x;
+    double y;
+    domaineMath.toXY(i, j, &x, &y); // fill (x,y) from (i,j)
+
+    //this->ptrFractalMath->setN(t);
+    this->ptrFractalMath->colorXY(ptrColorIJ,x, y); // in [01]
+    }
+
+

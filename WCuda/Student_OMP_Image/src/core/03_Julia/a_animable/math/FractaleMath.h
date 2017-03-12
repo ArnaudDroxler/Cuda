@@ -27,7 +27,7 @@ class FractaleMath
 
    	uint n;
 
-   	Calibreur<float>* calibreur;
+   	Calibreur<float> calibreur;
     };
 
 
