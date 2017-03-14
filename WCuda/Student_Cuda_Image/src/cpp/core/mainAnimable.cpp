@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 
+#include "MandelbrotProvider.h"
 #include "RipplingProvider.h"
 
 #include "Animateur_GPU.h"
@@ -29,6 +30,7 @@ int mainAnimable(Settings& settings);
  \*-------------------------------------*/
 
 static void rippling();
+static void mandelbrot();
 
 // Tools
 template<typename T>
@@ -48,8 +50,8 @@ int mainAnimable(Settings& settings)
 
     // Attention : pas tous a la fois
 
-    rippling();
-    // mandelbrot();
+    //rippling();
+    mandelbrot();
 
     cout << "\n[Animable] end" << endl;
 
@@ -68,6 +70,13 @@ void rippling()
     animer<uchar4>(&provider,NB_ITERATION);
     }
 
+void mandelbrot()
+    {
+    const int NB_ITERATION = 50000;
+
+    MandelbrotProvider provider;
+    animer<uchar4>(&provider,NB_ITERATION);
+    }
 /*-----------------------------------*\
  |*		Tools	        	*|
  \*-----------------------------------*/

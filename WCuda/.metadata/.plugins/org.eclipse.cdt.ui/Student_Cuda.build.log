@@ -1,4 +1,4 @@
-11:58:38 **** Build of configuration CudaGCC_parallel for project Student_Cuda ****
+16:29:57 **** Incremental Build of configuration CudaGCC_parallel for project Student_Cuda ****
 cbicc cuda jall 
 
 --------------------------------------------------------
@@ -113,6 +113,7 @@ Cuda compilation tools, release 8.0, V8.0.44
 [CBI] -> NVCCFLAGS (Partial) :
 [CBI] ->
 [CBI] ->              : --fmad=true
+[CBI] ->              : --ptxas-options=-v
 [CBI] ->              : -arch=sm_52
 [CBI] ->              : -m64
 [CBI] ->              : -std=c++11
@@ -281,6 +282,22 @@ Cuda compilation tools, release 8.0, V8.0.44
 [Student_Cuda_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/02_Hello_add_vector/01_objet/host/AddVector.cu
 [Student_Cuda_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/01_Hello/01_helloCuda.cu
 [Student_Cuda_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/01_Hello/02_hello_add.cu
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z9addVectorPfS_S_i' for 'sm_52'
+ptxas info    : Function properties for _Z9addVectorPfS_S_i
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 12 registers, 348 bytes cmem[0]
+ptxas info    : 32 bytes gmem
+ptxas info    : 19 bytes gmem
+ptxas info    : Compiling entry function '_Z9addScalariiPi' for 'sm_52'
+ptxas info    : Function properties for _Z9addScalariiPi
+    16 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 11 registers, 336 bytes cmem[0]
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z11kernelHellov' for 'sm_52'
+ptxas info    : Function properties for _Z11kernelHellov
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 2 registers, 320 bytes cmem[0]
 
 [CBI] -> Linking to   : /tmp/ramdrive/arc21/Targets/Student_Cuda/bin/Student_Cuda_cuda_80_x86_64.run
 
@@ -402,5 +419,5 @@ Cuda compilation tools, release 8.0, V8.0.44
 [CBI] -> Student_Cuda_cuda_80_x86_64 : End ALL!
 
 
-11:58:41 Build Finished (took 2s.985ms)
+16:30:00 Build Finished (took 2s.840ms)
 

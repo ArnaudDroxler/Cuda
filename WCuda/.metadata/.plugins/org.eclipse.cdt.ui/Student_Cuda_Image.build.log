@@ -1,4 +1,4 @@
-10:49:53 **** Incremental Build of configuration CudaGCC_parallel for project Student_Cuda_Image ****
+16:30:40 **** Incremental Build of configuration CudaGCC_parallel for project Student_Cuda_Image ****
 cbicc cuda jall 
 
 --------------------------------------------------------
@@ -112,6 +112,7 @@ Cuda compilation tools, release 8.0, V8.0.44
 [CBI] -> NVCCFLAGS (Partial) :
 [CBI] ->
 [CBI] ->              : --fmad=true
+[CBI] ->              : --ptxas-options=-v
 [CBI] ->              : -arch=sm_52
 [CBI] ->              : -m64
 [CBI] ->              : -std=c++11
@@ -368,11 +369,35 @@ Cuda compilation tools, release 8.0, V8.0.44
 [CBI] ->              : opencv_videoio_gcc484
 [CBI] ->              : opencv_videostab_gcc484
 
+[CBI] -> Create folder : /tmp/ramdrive/arc21/Targets/Student_Cuda_Image/bin
+[CBI] -> Create folder : /tmp/ramdrive/arc21/Targets/Student_Cuda_Image/obj
+[CBI] -> Create folder : /tmp/ramdrive/arc21/Targets/Student_Cuda_Image/cubin
 
 [CBI] -> Compilation parallel (32 threads)
 
+[Student_Cuda_Image_cuda_80_x86_64] -> g++ compiling .cpp : src/cpp/main.cpp
+[Student_Cuda_Image_cuda_80_x86_64] -> g++ compiling .cpp : src/cpp/core/mainAnimable.cpp
+[Student_Cuda_Image_cuda_80_x86_64] -> g++ compiling .cpp : src/cpp/core/mainBarivox.cpp
+[Student_Cuda_Image_cuda_80_x86_64] -> g++ compiling .cpp : src/cpp/core/mainBruteForce.cpp
 [Student_Cuda_Image_cuda_80_x86_64] -> g++ compiling .cpp : src/cpp/core/mainImage.cpp
+[Student_Cuda_Image_cuda_80_x86_64] -> g++ compiling .cpp : src/cpp/core/01_Rippling/02_provider/RipplingProvider.cpp
 [Student_Cuda_Image_cuda_80_x86_64] -> g++ compiling .cpp : src/cpp/core/02_Mandelbrot_Julia/provider/MandelbrotProvider.cpp
+[Student_Cuda_Image_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/01_Rippling/01_animable/device/ripplingDevice.cu
+[Student_Cuda_Image_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/01_Rippling/01_animable/host/Rippling.cu
+[Student_Cuda_Image_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/02_Mandelbrot_Julia/moo/device/MandelbrotDevice.cu
+[Student_Cuda_Image_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/02_Mandelbrot_Julia/moo/host/Mandelbrot.cu
+ptxas info    : 96 bytes gmem
+ptxas info    : 32 bytes gmem
+ptxas info    : Compiling entry function '_Z8ripplingP6uchar4jjf' for 'sm_52'
+ptxas info    : Function properties for _Z8ripplingP6uchar4jjf
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 15 registers, 340 bytes cmem[0], 4 bytes cmem[2]
+ptxas info    : 233 bytes gmem
+ptxas info    : 96 bytes gmem
+ptxas info    : Compiling entry function '_Z10mandelbrotP6uchar4jjjN3gpu11DomaineMathE' for 'sm_52'
+ptxas info    : Function properties for _Z10mandelbrotP6uchar4jjjN3gpu11DomaineMathE
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 392 bytes cmem[0], 12 bytes cmem[2]
 
 [CBI] -> Linking to   : /tmp/ramdrive/arc21/Targets/Student_Cuda_Image/bin/Student_Cuda_Image_cuda_80_x86_64.run
 
@@ -512,7 +537,7 @@ Cuda compilation tools, release 8.0, V8.0.44
 [CBI] ->
 [CBI] -> Compilateur  : g++ && nvcc
 [CBI] -> Task		  : End Compiling-Linking !
-[CBI] -> Time		  : 1 (s)
+[CBI] -> Time		  : 3 (s)
 ==================================================================================
 
 
@@ -524,5 +549,5 @@ Cuda compilation tools, release 8.0, V8.0.44
 [CBI] -> Student_Cuda_Image_cuda_80_x86_64 : End ALL!
 
 
-10:49:55 Build Finished (took 2s.290ms)
+16:30:43 Build Finished (took 3s.382ms)
 
