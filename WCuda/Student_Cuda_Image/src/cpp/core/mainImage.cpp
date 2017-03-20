@@ -6,6 +6,8 @@
 #include "cudaTools.h"
 
 #include "MandelbrotProvider.h"
+#include "RipplingProvider.h"
+#include "RayTracingProvider.h"
 
 #include "Settings_GPU.h"
 #include "Viewer_GPU.h"
@@ -51,8 +53,8 @@ int mainImage(Settings& settings)
     ImageOption zoomable(true,true,true,true);
     ImageOption nozoomable(false,false,false,false);
 
-    Viewer<MandelbrotProvider> mandelbrot(zoomable, 25, 25); // imageOption px py
-
+//    Viewer<MandelbrotProvider> mandelbrot(zoomable, 25, 25); // imageOption px py
+    Viewer<RayTracingProvider> raytracing(zoomable, 25, 25); // imageOption px py
     // Common
     GLUTImageViewers::runALL(); // Bloquant, Tant qu'une fenetre est ouverte
 
