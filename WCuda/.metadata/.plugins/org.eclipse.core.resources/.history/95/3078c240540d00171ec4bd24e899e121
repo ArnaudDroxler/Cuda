@@ -89,6 +89,7 @@ void raytracing()
     animer<uchar4>(&provider,NB_ITERATION);
     }
 
+void
 /*-----------------------------------*\
  |*		Tools	        	*|
  \*-----------------------------------*/

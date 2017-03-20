@@ -41,7 +41,7 @@ Animable_I<uchar4>* RayTracingProvider::createAnimable()
     int nbSphere = 50;
 
     // Dimension
-    int dw = 16 * 60 ;
+    int dw = 16 * 60;
     int dh = 16 * 60;
 
     // Grid Cuda

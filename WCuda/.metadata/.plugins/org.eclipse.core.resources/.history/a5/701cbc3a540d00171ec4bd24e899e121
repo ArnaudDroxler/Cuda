@@ -32,7 +32,6 @@ int mainAnimable(Settings& settings);
 
 static void rippling();
 static void mandelbrot();
-static void raytracing();
 
 // Tools
 template<typename T>
@@ -89,6 +88,7 @@ void raytracing()
     animer<uchar4>(&provider,NB_ITERATION);
     }
 
+void
 /*-----------------------------------*\
  |*		Tools	        	*|
  \*-----------------------------------*/

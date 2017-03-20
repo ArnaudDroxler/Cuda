@@ -51,8 +51,10 @@ class RaytracingMath
 		ptrColor->z = 0;
 		ptrColor->w = 255;
 		float hCarre;
+		Sphere s = ptrDevTabSphere[0];
 		for (uint index = 0; index < nbSphere; index++)
 		{
+		    s = ;
 		    hCarre = ptrDevTabSphere[index].hCarre(i, j);
 		    if (ptrDevTabSphere[index].isEnDessous(hCarre))
 		    {

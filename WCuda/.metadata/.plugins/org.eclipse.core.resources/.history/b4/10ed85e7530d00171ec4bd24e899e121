@@ -32,7 +32,6 @@ int mainAnimable(Settings& settings);
 
 static void rippling();
 static void mandelbrot();
-static void raytracing();
 
 // Tools
 template<typename T>
@@ -54,7 +53,6 @@ int mainAnimable(Settings& settings)
 
     //rippling();
     //mandelbrot();
-    raytracing();
 
     cout << "\n[Animable] end" << endl;
 
@@ -81,14 +79,15 @@ void mandelbrot()
     animer<uchar4>(&provider,NB_ITERATION);
     }
 
-void raytracing()
+void mandelbrot()
     {
     const int NB_ITERATION = 1000;
 
-    RayTracingProvider provider;
+    MandelbrotProvider provider;
     animer<uchar4>(&provider,NB_ITERATION);
     }
 
+void
 /*-----------------------------------*\
  |*		Tools	        	*|
  \*-----------------------------------*/
