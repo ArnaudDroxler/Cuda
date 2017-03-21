@@ -38,10 +38,8 @@ Animable_I<uchar4>* RayTracingProvider::createAnimable()
     //animation
     float dt = 2.f * PI_FLOAT / 1000.f;
 
-    int nbSphere = 50;
-
     // Dimension
-    int dw = 16 * 60 ;
+    int dw = 16 * 60;
     int dh = 16 * 60;
 
     // Grid Cuda
@@ -52,7 +50,7 @@ Animable_I<uchar4>* RayTracingProvider::createAnimable()
     dim3 db = dim3(512, 1,1);
     Grid grid(dg, db);
 
-    return new RayTracing(nbSphere, grid, dw, dh, dt);
+    return new RayTracing( grid, dw, dh, dt);
     }
 
 /**

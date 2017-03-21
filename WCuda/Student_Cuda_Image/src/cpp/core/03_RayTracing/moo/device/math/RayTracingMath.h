@@ -24,7 +24,7 @@ class RaytracingMath
 
     public:
 
-	__device__ RaytracingMath(float t,int nbSphere,Sphere* ptrDevTabSphere)
+	__device__ RaytracingMath(float t, int nbSphere, Sphere* ptrDevTabSphere)
 	    {
 	    this->t = t;
 	    this->nbSphere = nbSphere;
@@ -32,7 +32,7 @@ class RaytracingMath
 	    }
 
 	__device__
-	   virtual ~RaytracingMath()
+	     virtual ~RaytracingMath()
 	    {
 	    // rien
 	    }
@@ -46,21 +46,40 @@ class RaytracingMath
 	__device__
 	void colorIJ(uchar4* ptrColor, float i, float j)
 	    {
-		ptrColor->x = 0;
-		ptrColor->y = 0;
-		ptrColor->z = 0;
-		ptrColor->w = 255;
-		float hCarre;
-		for (uint index = 0; index < nbSphere; index++)
+
+	    float min = 10000.0f;
+	    float hueMin = -1000.0f;
+	    float brightnessMin = -1000.0f;
+
+	    for (uint index = 0; index < nbSphere; index++)
 		{
-		    hCarre = ptrDevTabSphere[index].hCarre(i, j);
-		    if (ptrDevTabSphere[index].isEnDessous(hCarre))
+		Sphere sphere = ptrDevTabSphere[index];
+		float hCarre = sphere.hCarre(i,j);
+
+		if (sphere.isEnDessous(hCarre))
 		    {
-			ColorTools::HSB_TO_RVB(ptrDevTabSphere[index].hue(t), 1.f, ptrDevTabSphere[index].brightness(ptrDevTabSphere[index].dz(hCarre)), ptrColor);
-			break;
+		    float dz = sphere.dz(hCarre);
+		    float distance = sphere.distance(dz);
+
+		    if (distance < min)
+			{
+			min = distance;
+			hueMin = sphere.hue(t);
+			brightnessMin = sphere.brightness(dz);
+			}
 		    }
 		}
 
+	    if (hueMin >= 0)
+		{
+		ColorTools::HSB_TO_RVB(hueMin, 1.f, brightnessMin, ptrColor);
+		}
+	    else
+		{
+		ptrColor->x = 0;
+		ptrColor->y = 0;
+		ptrColor->z = 0;
+		}
 	    }
 
     private:

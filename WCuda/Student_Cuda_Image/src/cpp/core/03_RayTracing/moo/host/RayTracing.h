@@ -23,7 +23,7 @@ class RayTracing: public Animable_I<uchar4>
 
     public:
 
-	RayTracing(uint nbSphere, const Grid& grid, uint w, uint h, float dt);
+	RayTracing( const Grid& grid, uint w, uint h, float dt);
 	virtual ~RayTracing(void);
 
 	/*--------------------------------------*\
@@ -53,8 +53,8 @@ class RayTracing: public Animable_I<uchar4>
     private:
 
 	// Inputs
+	int i;
 	float dt;
-	int nbSphere;
 	dim3 dg;
 	dim3 db;
 	size_t sizeOctet;

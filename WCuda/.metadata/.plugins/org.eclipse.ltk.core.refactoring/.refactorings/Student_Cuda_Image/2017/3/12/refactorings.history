@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Student_Cuda_Image/src/cpp/core/03_RayTracing/provider/length_cm.h&apos; to &apos;nbSphere.h&apos;" description="Rename resource &apos;length_cm.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/cpp/core/03_RayTracing/provider/length_cm.h" name="nbSphere.h" stamp="1490106999047" updateReferences="true"/>
+</session>

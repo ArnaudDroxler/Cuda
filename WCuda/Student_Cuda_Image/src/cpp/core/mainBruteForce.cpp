@@ -6,6 +6,7 @@
 #include "ProviderGridMaillage2D.h"
 
 #include "RipplingProvider.h"
+#include "RayTracingProvider.h"
 
 #include "Animateur_GPU.h"
 #include "Settings_GPU.h"
@@ -33,6 +34,7 @@ int mainBrutForce(Settings& settings);
  \*-------------------------------------*/
 
 static void rippling();
+static void raytracing();
 
 // tools
 template<typename T>
@@ -50,7 +52,8 @@ int mainBrutForce(Settings& settings)
     {
     cout << "\n[BruteForce] mode" << endl;
 
-    rippling();
+    //rippling();
+    raytracing();
 
     cout << "\n[BruteForce] end" << endl;
 
@@ -65,6 +68,12 @@ void rippling()
     {
     RipplingProvider provider;
     bruteForce<uchar4>(&provider, "Rippling_RGBA_uchar4");
+    }
+
+void raytracing()
+    {
+    RayTracingProvider provider;
+    bruteForce<uchar4>(&provider, "Raytracing_RGBA_uchar4");
     }
 
 /*--------------------------------------*\

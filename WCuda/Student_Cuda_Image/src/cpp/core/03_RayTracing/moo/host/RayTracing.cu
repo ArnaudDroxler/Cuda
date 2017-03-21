@@ -5,30 +5,33 @@
 #include <assert.h>
 #include "RayTracing.h"
 
+#include "../../provider/nbSphere.h"
+
 using std::cout;
 using std::endl;
 
 
-extern __global__ void rayTracing(uchar4* ptrDevPixels,uint w, uint h,float t,uint nbSphere, Sphere* ptrDevTabSphere);
+extern __global__ void CM(uchar4* ptrDevPixels, uint w, uint h, float t);
+extern __global__ void GM(uchar4* ptrDevPixels, uint w, uint h, float t, Sphere* ptrDevTabSphere);
+extern __global__ void SM(uchar4* ptrDevPixels, uint w, uint h, float t, Sphere* ptrDevTabSphere);
+extern __host__ void uploadGPU(Sphere* tabValue);
 
 
-
-RayTracing::RayTracing(uint nbSphere, const Grid& grid, uint w, uint h, float dt) :
+RayTracing::RayTracing( const Grid& grid, uint w, uint h, float dt) :
 	Animable_I<uchar4>(grid, w, h, "RayTracing_Cuda_RGBA_uchar4")
     {
 
     // Inputs
     this->dt = dt;
-    this->nbSphere = nbSphere;
 
-    this->sizeOctet = nbSphere * sizeof(Sphere);
+    this->sizeOctet = NB_SPHERE * sizeof(Sphere);
 
-    printf("coucou");
-    SphereCreator sphereCreator(nbSphere,w,h,100);
+    SphereCreator sphereCreator(NB_SPHERE,w,h,100);
     Sphere* ptrTabSphere = sphereCreator.getTabSphere();
 
     // Tools
     this->t = 0;
+    this->i = 0;
 
     this->dg = grid.dg;
     this->db = grid.db;
@@ -37,30 +40,27 @@ RayTracing::RayTracing(uint nbSphere, const Grid& grid, uint w, uint h, float dt
     Device::memclear(ptrDevTabSphere, sizeOctet);
     Device::memcpyHToD(ptrDevTabSphere, ptrTabSphere, sizeOctet);
     //Device::lastCudaError("TabSphere MM (end allocation)"); // temp debug, facultatif
-
+    uploadGPU(ptrTabSphere);
 
     }
 
 RayTracing::~RayTracing()
     {
-    //delete this->ptrTabSphere;
     Device::free(ptrDevTabSphere);
-    //Device::lastCudaError("TabSphere MM (end deallocation)"); // temp debug, facultatif
     }
 
 
 
 void RayTracing::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& domaineMath)
     {
-
-    //Device::lastCudaError("rayTracing (before kernel)"); // facultatif, for debug only, remove for release
-    rayTracing<<<dg,db>>>(ptrDevPixels,w,h,t,nbSphere,ptrDevTabSphere);
-    //Device::lastCudaError("rayTracing (after kernel)"); // facultatif, for debug only, remove for release
-
-    //Device::synchronize();
-
-
-
+//    i++;
+//    if(i%3 == 0){
+//	 CM<<<dg,db>>>(ptrDevPixels,w,h,t);
+//    }else if(i%3 == 1){
+//	 GM<<<dg,db>>>(ptrDevPixels,w,h,t,ptrDevTabSphere);
+//    }else if(i%3 == 2){
+	 SM<<<dg,db,sizeOctet>>>(ptrDevPixels,w,h,t,ptrDevTabSphere);
+    //}
     }
 
 
