@@ -13,7 +13,7 @@ using namespace gpu;
 __constant__ Sphere TAB_CM[NB_SPHERE];
 
 static __device__ void rayTracing(uchar4* ptrDevPixels, uint w, uint h, float t, Sphere* ptrDevTabSphere);
-static __device__ void copyGMtoSM(Sphere* ptrDevTabSphere, Sphere* tab_SM)
+static __device__ void copyGMtoSM(Sphere* ptrDevTabSphere, Sphere* tab_SM);
 
 
 __host__ void uploadGPU(Sphere* tabValue)
