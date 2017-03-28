@@ -34,7 +34,7 @@ using std::endl;
  |*	Methode	public (static)		*|
  \*-------------------------------------*/
 
-bool VectorTools::isAddVector_Ok(float* ptrV1, float* ptrV2, float* ptrW, int n)
+bool ReductionTools::isAddVector_Ok(float* ptrV1, float* ptrV2, float* ptrW, int n)
     {
     float* ptrResult = new float[n];
 
@@ -50,7 +50,7 @@ bool VectorTools::isAddVector_Ok(float* ptrV1, float* ptrV2, float* ptrW, int n)
 /**
  * 1 2 3 4 5
  */
-float* VectorTools::createV1(int n)
+float* ReductionTools::createV1(int n)
     {
     float* ptrV = new float[n];
 
@@ -65,7 +65,7 @@ float* VectorTools::createV1(int n)
 /**
  * 10 20 30 40 50
  */
-float* VectorTools::createV2(int n)
+float* ReductionTools::createV2(int n)
     {
     float* ptrV = new float[n];
 
@@ -77,7 +77,7 @@ float* VectorTools::createV2(int n)
     return ptrV;
     }
 
-void VectorTools::print(float* ptrV, int n)
+void ReductionTools::print(float* ptrV, int n)
     {
     cout << endl;
     for (int i = 0; i < n; i++)
@@ -94,7 +94,7 @@ void VectorTools::print(float* ptrV, int n)
 /**
  * v1,v2,w same size
  */
-void VectorTools::addVectorCPU(float* ptrV1, float* ptrV2, float* ptrW, int n)
+void ReductionTools::addVectorCPU(float* ptrV1, float* ptrV2, float* ptrW, int n)
     {
     for (int i = 0; i < n; i++)
 	{
@@ -105,7 +105,7 @@ void VectorTools::addVectorCPU(float* ptrV1, float* ptrV2, float* ptrW, int n)
 /**
  * simple
  */
-bool VectorTools::isEquals(float* ptrV1, float* ptrV2, int n, float epsilon)
+bool ReductionTools::isEquals(float* ptrV1, float* ptrV2, int n, float epsilon)
     {
     for (int i = 1; i <= n; i++)
 	{

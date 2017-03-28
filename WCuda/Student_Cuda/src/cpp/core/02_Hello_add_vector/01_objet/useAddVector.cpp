@@ -38,8 +38,8 @@ bool useAddVecteur()
     {
     int n = 9;
 
-    float* ptrV1 = VectorTools::createV1(n);
-    float* ptrV2 = VectorTools::createV2(n);
+    float* ptrV1 = ReductionTools::createV1(n);
+    float* ptrV2 = ReductionTools::createV2(n);
     float* ptrW = new float[n];
 
     // Partie interessante GPGPU
@@ -56,9 +56,9 @@ bool useAddVecteur()
 	addVector.run();
 	}
 
-    VectorTools::print(ptrW, n); // check result
+    ReductionTools::print(ptrW, n); // check result
 
-    bool isOk = VectorTools::isAddVector_Ok(ptrV1, ptrV2, ptrW, n);
+    bool isOk = ReductionTools::isAddVector_Ok(ptrV1, ptrV2, ptrW, n);
 
     delete[] ptrV1;
     delete[] ptrV2;

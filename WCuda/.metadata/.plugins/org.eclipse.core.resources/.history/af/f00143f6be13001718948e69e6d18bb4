@@ -1,0 +1,40 @@
+#pragma once
+
+#include "cudaTools.h"
+#include "Grid.h"
+
+
+
+class Slice
+    {
+
+
+    public:
+
+	Slice(const Grid& grid);
+
+	virtual ~Slice(void);
+
+	void run();
+
+
+    private:
+
+
+	dim3 dg;
+	dim3 db;
+
+	float* ptrV1;
+
+	float* ptrW;
+
+	// Tools
+	float* ptrDevV1;
+
+	size_t sizeOctet;
+
+    };
+
+/*----------------------------------------------------------------------*\
+ |*			End	 					*|
+ \*---------------------------------------------------------------------*/

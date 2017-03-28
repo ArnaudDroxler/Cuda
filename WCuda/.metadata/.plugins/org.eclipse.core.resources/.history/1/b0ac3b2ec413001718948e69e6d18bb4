@@ -1,0 +1,52 @@
+#include <iostream>
+
+#include "Device.h"
+#include "Slice.h"
+
+using std::cout;
+using std::endl;
+
+
+extern __global__ void slice();
+
+
+Slice::Slice(const Grid& grid)
+    {
+    this->sizeResult = sizeof(float);
+    this->sizeTabValue = NB_SLICE * sizeof(float);
+
+    for(int i=0;i<=NB_SLICE;i++)
+	{
+	ptrTabValue[i] = 1.0;
+	}
+
+    Device::malloc(&ptrDevResult, sizeOctet);
+    Device::memset(ptrDevResult, 0,sizeOctet);
+
+    Device::malloc(&ptrDevResult, sizeOctet);
+    Device::memset(ptrDevResult, 0,sizeOctet)
+
+    this->dg = grid.dg;
+    this->db = grid.db;
+
+    }
+
+Slice::~Slice(void)
+    {
+    Device::free(ptrDevResult);
+    }
+
+
+void Slice::run()
+    {
+    Device::lastCudaError("slice (before)"); // temp debug
+    addVector<<<dg,db, sizeTabValue >>>(ptrDevResult,ptrTabValue); // assynchrone
+    Device::lastCudaError("slice (after)"); // temp debug
+
+    //Device::synchronize(); // Temp,debug, only for printf in GPU
+
+    Device::memcpyDToH(ptrResult, ptrDevResult, sizeOctet); // barriere synchronisation implicite
+
+    print("Reslut : %d",&ptrResult);
+    }
+
