@@ -1,0 +1,49 @@
+#include <iostream>
+#include "Device.h"
+#include "cudaTools.h"
+
+#include "Histogramme.h"
+
+
+using std::cout;
+using std::endl;
+
+extern __global__ void histogramme(int* ptrTabPixelsGM, uint nbPixels, int* ptrHistogrammeGM);
+
+Histogramme::Histogramme(const Grid& grid, int* ptrResult, int dataMax)
+    {
+
+    this->dg = grid.dg;
+    	this->db = grid.db;
+
+    this->ptrResult = ptrResult;
+
+    DataCreator dataCreator(dataMax) ;
+    this->data = dataCreator.getTabData();
+    this->nbPixels= dataCreator.getLength();
+
+
+    this->sizeOctetResult = sizeof(int) * dataMax; // octet
+    this->sizeOctetData = sizeof(int) * this->nbPixels;
+
+    Device::malloc(&ptrTabIn, sizeOctetData);
+    Device::memclear(ptrTabIn, sizeOctetData);
+    Device::memcpyHToD(ptrTabIn, data, sizeOctetData);
+
+    Device::malloc(&ptrTabOut, sizeOctetResult);
+    Device::memclear(ptrTabOut, sizeOctetResult);
+
+    }
+
+Histogramme::~Histogramme(void)
+    {
+
+    }
+
+
+void Histogramme::run()
+    {
+
+
+    }
+

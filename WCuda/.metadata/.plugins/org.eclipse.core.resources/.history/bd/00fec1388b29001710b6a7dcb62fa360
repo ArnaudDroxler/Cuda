@@ -1,0 +1,16 @@
+#include "Indice1D.h"
+#include "reductionADD.h"
+#include <curand_kernel.h>
+
+
+
+__global__ void histogramme(int* ptrTabPixelsGM, uint nbPixels, int* ptrHistogrammeGM)
+    {
+    extern __shared__ int TAB_SM[];
+
+      reductionIntraThread(TAB_SM, ptrTabPixelsGM, nbPixels);
+
+      __syncthreads();
+
+      reductionInterBlock(TAB_SM, ptrHistogrammeGM);
+    }

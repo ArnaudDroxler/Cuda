@@ -1,0 +1,10 @@
+#include "Indice1D.h"
+#include "reductionADD.h"
+#include <curand_kernel.h>
+
+
+
+__global__ void histogramme()
+    {
+
+    }

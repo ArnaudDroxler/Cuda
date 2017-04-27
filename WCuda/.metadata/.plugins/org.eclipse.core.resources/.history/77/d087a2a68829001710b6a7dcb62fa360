@@ -1,0 +1,29 @@
+#include <iostream>
+#include "Device.h"
+#include "cudaTools.h"
+
+#include "Histogramme.h"
+
+
+using std::cout;
+using std::endl;
+
+extern __global__ void histogramme(int* ptrTabPixelsGM, uint nbPixels, int* ptrHistogrammeGM);
+
+Histogramme::Histogramme(const Grid& grid, int nbDartsTotal, float m)
+    {
+
+    }
+
+Histogramme::~Histogramme(void)
+    {
+
+    }
+
+
+void Histogramme::run()
+    {
+
+
+    }
+

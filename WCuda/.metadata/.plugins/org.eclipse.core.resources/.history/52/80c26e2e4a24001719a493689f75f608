@@ -1,0 +1,59 @@
+#include <iostream>
+#include "Device.h"
+#include "cudaTools.h"
+
+#include "Histogramme.h"
+
+
+using std::cout;
+using std::endl;
+
+
+extern __global__ void createGenerator(curandState* tabDevGeneratorGM, int deviceId);
+extern __global__ void montecarlo(curandState* tabDevGeneratorGM, uint nbDarts,uint m, uint* ptrDevNxTotal);
+
+Histogramme::Histogramme(const Grid& grid, int nbDartsTotal, float m)
+    {
+
+    this->dg = grid.dg;
+    this->db = grid.db;
+
+    this->nbThread = Device::nbThread(grid);
+    this->nbDartsTotal = nbDartsTotal;
+    this->m = m;
+    this->nbDarts = nbDartsTotal / nbThread;
+
+    this->ptrDevGeneratorGM = NULL;
+    this->sizeOctetGeneratorGM = nbThread*sizeof(curandState);
+
+    this->result = 0;
+    this->ptrDevResult = NULL;
+    this->sizeInt = sizeof(uint);
+
+    this->sizeTabSM = db.x *sizeof(uint);
+
+    Device::malloc(&ptrDevGeneratorGM, sizeOctetGeneratorGM);
+    Device::memclear(ptrDevGeneratorGM, sizeOctetGeneratorGM);
+
+    int id = Device::getDeviceId();
+
+    Device::lastCudaError("monteCarlo  createGenerator (before)");
+    createGenerator<<<dg,db>>>(ptrDevGeneratorGM,id);
+    Device::lastCudaError("monteCarlo  createGenerator (after)");
+
+    Device::malloc(&ptrDevResult, sizeInt);
+    cudaMemset(ptrDevResult, 0,sizeInt);
+    }
+
+Histogramme::~Histogramme(void)
+    {
+
+    }
+
+
+void Histogramme::run()
+    {
+
+
+    }
+

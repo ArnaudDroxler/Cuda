@@ -1,0 +1,74 @@
+#include <iostream>
+#include "Device.h"
+#include "cudaTools.h"
+#include "MonteCarlo.h"
+
+
+using std::cout;
+using std::endl;
+
+
+extern __global__ void createGenerator(curandState* tabDevGeneratorGM, int deviceId);
+extern __global__ void montecarlo(curandState* tabDevGeneratorGM, uint nbDarts,uint m, uint* ptrDevNxTotal);
+
+MonteCarlo::MonteCarlo(const Grid& grid, int nbDartsTotal, float m)
+    {
+
+    this->dg = grid.dg;
+    this->db = grid.db;
+
+    this->nbThread = Device::nbThread(grid);
+    this->nbDartsTotal = nbDartsTotal;
+    this->m = m;
+    this->nbDarts = nbDartsTotal / nbThread;
+
+    this->ptrDevGeneratorGM = NULL;
+    this->sizeOctetGeneratorGM = nbThread*sizeof(curandState);
+
+    this->result = 0;
+    this->ptrDevResult = NULL;
+    this->sizeInt = sizeof(uint);
+
+    this->sizeTabSM = db.x *sizeof(uint);
+
+    Device::malloc(&ptrDevGeneratorGM, sizeOctetGeneratorGM);
+    Device::memclear(ptrDevGeneratorGM, sizeOctetGeneratorGM);
+
+    int id = Device::getDeviceId();
+
+    Device::lastCudaError("monteCarlo  createGenerator (before)");
+    createGenerator<<<dg,db>>>(ptrDevGeneratorGM,id);
+    Device::lastCudaError("monteCarlo  createGenerator (after)");
+
+    Device::malloc(&ptrDevResult, sizeInt);
+    cudaMemset(ptrDevResult, 0,sizeInt);
+    }
+
+MonteCarlo::~MonteCarlo(void)
+    {
+    Device::free(ptrDevGeneratorGM);
+    Device::free(ptrDevResult);
+    }
+
+
+void MonteCarlo::run()
+    {
+    Device::lastCudaError("monteCarlo (before)"); // temp debug
+    montecarlo<<<dg,db, sizeTabSM>>>(ptrDevGeneratorGM, nbDarts,m, ptrDevResult); // assynchrone
+    Device::lastCudaError("monteCarlo (after)"); // temp debug
+
+    //Device::synchronize(); // Temp,debug, only for printf in GPU
+
+    Device::memcpyDToH(&montecarloResult, ptrDevResult, sizeInt); // barriere synchronisation implicite
+
+    result = (double)montecarloResult / (double) nbDartsTotal * m;
+
+    }
+
+float MonteCarlo::getResult(){
+    return result;
+}
+
+float MonteCarlo::getMontecarloResult(){
+    return montecarloResult;
+}

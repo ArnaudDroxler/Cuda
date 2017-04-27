@@ -1,0 +1,50 @@
+#include <iostream>
+#include "Device.h"
+#include "cudaTools.h"
+
+#include "MontecarloMultiGPU.h"
+
+
+using std::cout;
+using std::endl;
+
+MontecarloMultiGPU::MontecarloMultiGPU(const Grid& grid, int nbDartsTotal, float m)
+    {
+
+    this->dg = grid.dg;
+    this->db = grid.db;
+
+    this->nbThread = grid.threadCounts();
+    this->nbDartsTotal = nbDartsTotal;
+    this->m = m;
+    this->nbDarts = nbDartsTotal / nbThread;
+    this->nbDevice = Device::getDeviceCount();
+
+    }
+
+MontecarloMultiGPU::~MontecarloMultiGPU(void)
+    {
+
+    }
+
+
+void MontecarloMultiGPU::run()
+    {
+    int somme = 0;
+    #pragma omp parallel for reduction(+:result)
+    for (int i = 0; i < nbDevice; i++)
+   	{
+	Device::setDevice(i);
+	MonteCarlo mc();
+	mc.run();
+	result = mc.getResult();
+
+   	}
+
+    result = (double)result / (double) nbDartsTotal * m;
+
+    }
+
+float MontecarloMultiGPU::getResult(){
+    return result;
+}

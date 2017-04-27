@@ -1,5 +1,5 @@
-17:36:15 **** Incremental Build of configuration CudaGCC_parallel for project Student_Cuda ****
-cbicc cuda jall 
+17:22:31 **** Incremental Build of configuration CudaGCC for project Student_Cuda ****
+cbicc cuda all 
 
 --------------------------------------------------------
 [Runtime] : gcc x86
@@ -78,7 +78,7 @@ Built on Sun_Sep__4_22:14:01_CDT_2016
 Cuda compilation tools, release 8.0, V8.0.44
 
 
-[CUDA GCC] : jall
+[CUDA GCC] : all
 
 
 ==================================================================================
@@ -128,6 +128,9 @@ Cuda compilation tools, release 8.0, V8.0.44
 [CBI] ->              : src/cpp/core/02_Hello_add_vector/01_objet/host/
 [CBI] ->              : src/cpp/core/03_Slice/01_objet/
 [CBI] ->              : src/cpp/core/03_Slice/01_objet/host/
+[CBI] ->              : src/cpp/core/04_Montecarlo/01_objet/host/
+[CBI] ->              : src/cpp/core/05_MontecarloMultiGPU/host/
+[CBI] ->              : src/cpp/core/06_Histogramme/host/
 [CBI] ->              : src/cpp/test/junit/01_Test_Hello/
 [CBI] ->              : src/cpp/test/junit/02_Test_Vector/
 
@@ -267,14 +270,14 @@ Cuda compilation tools, release 8.0, V8.0.44
 [CBI] ->              : nvrtc-builtins
 
 
-[CBI] -> Compilation parallel (32 threads)
-
-[Student_Cuda_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/03_Slice/01_objet/device/slice_device.cu
+[Student_Cuda_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/06_Histogramme/device/Histogramme_device.cu
 ptxas info    : 0 bytes gmem
-ptxas info    : Compiling entry function '_Z5slicePfi' for 'sm_52'
-ptxas info    : Function properties for _Z5slicePfi
+ptxas info    : Compiling entry function '_Z11histogrammePijS_' for 'sm_52'
+ptxas info    : Function properties for _Z11histogrammePijS_
     0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
-ptxas info    : Used 10 registers, 332 bytes cmem[0], 4 bytes cmem[2]
+ptxas info    : Used 32 registers, 344 bytes cmem[0]
+[Student_Cuda_cuda_80_x86_64] -> nvcc compiling .cu : src/cpp/core/06_Histogramme/host/Histogramme.cu
+ptxas info    : 77728 bytes gmem, 72 bytes cmem[3]
 
 [CBI] -> Linking to   : /tmp/ramdrive/arc21/Targets/Student_Cuda/bin/Student_Cuda_cuda_80_x86_64.run
 
@@ -384,7 +387,7 @@ ptxas info    : Used 10 registers, 332 bytes cmem[0], 4 bytes cmem[2]
 [CBI] ->
 [CBI] -> Compilateur  : g++ && nvcc
 [CBI] -> Task		  : End Compiling-Linking !
-[CBI] -> Time		  : 2 (s)
+[CBI] -> Time		  : 5 (s)
 ==================================================================================
 
 
@@ -393,8 +396,8 @@ ptxas info    : Used 10 registers, 332 bytes cmem[0], 4 bytes cmem[2]
 [CBI] -> Symlink Project Inc
 [CBI] -> To update code completion : ctrl-shift-s   or   gui/index/rebuild
 
-[CBI] -> Student_Cuda_cuda_80_x86_64 : End ALL!
+[CBI] -> Student_Cuda_cuda_80_x86_64   : End ALL!
 
 
-17:36:18 Build Finished (took 2s.686ms)
+17:22:37 Build Finished (took 5s.340ms)
 
